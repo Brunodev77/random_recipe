@@ -22,6 +22,14 @@ public class RecipeViewModel extends ViewModel {
 
     private MutableLiveData<String> nome;
 
+    private MutableLiveData<String> strImageSource;
+
+    private MutableLiveData<String> strInstructions;
+
+    private MutableLiveData<String> strIngredient;
+
+    private MutableLiveData<String> strMeasure;
+
 
     public static ViewModelInitializer<RecipeViewModel> initializer = new ViewModelInitializer<>(
             RecipeViewModel.class,
@@ -31,6 +39,12 @@ public class RecipeViewModel extends ViewModel {
         this.app = app;
         loading = new MutableLiveData<>(View.GONE);
         nome = new MutableLiveData<>();
+        strImageSource = new MutableLiveData<>();
+        strInstructions = new MutableLiveData<>();
+        strIngredient = new MutableLiveData<>();
+        strMeasure = new MutableLiveData<>();
+
+
 
     }
 
@@ -39,8 +53,7 @@ public class RecipeViewModel extends ViewModel {
         app.getExecutor().execute(() -> {
             try {
                 Meals m = app.getMealsRepo().randomRecipe();
-                nome.postValue(extratorRecipe(m));
-
+                extratorRecipe(m);
             } catch (IOException e){
                 throw new RuntimeException(e);
             }
@@ -53,7 +66,9 @@ public class RecipeViewModel extends ViewModel {
     private String extratorRecipe(Meals m) {
         String recipe = "";
         for (Recipe r : m.meals) {
-            recipe = r.strMeal;
+            nome.postValue(r.strMeal);
+            strImageSource.postValue(r.strImageSource);
+            strInstructions.postValue(r.strInstructions);
         }
         return recipe;
     }
@@ -64,6 +79,22 @@ public class RecipeViewModel extends ViewModel {
 
     public LiveData<String> getNome() {
         return nome;
+    }
+
+    public LiveData<String> getStrImageSource() {
+        return strImageSource;
+    }
+
+    public LiveData<String> getStrInstructions() {
+        return strInstructions;
+    }
+
+    public LiveData<String> getStrIngredient() {
+        return strIngredient;
+    }
+
+    public LiveData<String> getStrMeasure() {
+        return strMeasure;
     }
 
 }

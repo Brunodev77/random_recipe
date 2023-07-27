@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.randomrecipe.databinding.ActivityRecipeDetailsBinding;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -26,7 +27,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         RecipeViewModel vm = new ViewModelProvider(this, from(RecipeViewModel.initializer)).get(RecipeViewModel.class);
 
-        vm.getNome().observe(this, (newV) -> binding.textView.setText(newV));
+        vm.getLoading().observe(this, (newV) -> binding.progressBar.setVisibility(newV));
+        vm.getNome().observe(this, (newV) -> binding.name.setText(newV));
+        vm.getStrImageSource().observe(this, (newV) -> Picasso.get().load(newV).into(binding.imageView));
+        vm.getStrInstructions().observe(this, (newV) -> binding.instructions.setText(newV));
+        vm.getStrIngredient().observe(this,(newV) -> binding.ingredient.setText(newV));
+        vm.getStrMeasure().observe(this, (newV) -> binding.measure.setText(newV));
+
+
 
         vm.loadRecipe();
 
