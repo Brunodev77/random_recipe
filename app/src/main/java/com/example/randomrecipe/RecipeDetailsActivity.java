@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.randomrecipe.databinding.ActivityRecipeDetailsBinding;
 import com.squareup.picasso.Picasso;
@@ -38,15 +40,9 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         vm.loadRecipe();
 
-        /*
-        try {
-            Log.d("inciotryactiv","inicioatcivity");
-            vm.loadRecipe();
-        } catch (IOException e) {
-            Log.d("inciocath","inicioatcivity");
-            throw new RuntimeException(e);
-        }
-
-         */
+    }
+    public void onClickRandomSearch(View view){
+        Intent intent = new Intent(this, RecipeDetailsActivity.class);
+        startActivity(intent);
     }
 }

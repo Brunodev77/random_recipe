@@ -50,4 +50,5 @@ public class Recipe {
     public String strMeasure19;
     public String strMeasure20;
 
+
 }
